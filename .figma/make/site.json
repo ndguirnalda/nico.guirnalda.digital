@@ -1,0 +1,10 @@
+{
+  "description": "A polished portfolio website with bold black-and-yellow styling and refined typography to showcase creative work and help professionals attract new opportunities.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}
