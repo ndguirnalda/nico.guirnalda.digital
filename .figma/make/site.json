@@ -1,7 +1,11 @@
 {
-  "description": "A polished portfolio website with bold black-and-yellow styling and refined typography to showcase creative work and help professionals attract new opportunities.",
+  "title": "nico.guirnalda.digital",
+  "description": "Nico Guirnalda | Web Designer, Developer & Digital Creative",
   "robots": {
     "index": false
+  },
+  "openGraph": {
+    "image": "/.figma/make/social-image.png"
   },
   "accessibility": {
     "addBypassLinks": false,
