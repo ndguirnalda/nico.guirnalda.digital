@@ -211,8 +211,17 @@ function ProjectVisual({ type }: { type: string }) {
 
 export default function App() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [headerCompact, setHeaderCompact] = useState(false);
 
   const closeMenu = () => setMenuOpen(false);
+
+  useEffect(() => {
+    const updateHeader = () => setHeaderCompact(window.scrollY > 24);
+
+    updateHeader();
+    window.addEventListener("scroll", updateHeader, { passive: true });
+    return () => window.removeEventListener("scroll", updateHeader);
+  }, []);
 
   useEffect(() => {
     const revealElements = document.querySelectorAll<HTMLElement>("[data-reveal]");
@@ -240,7 +249,7 @@ export default function App() {
 
   return (
     <div className="site-shell">
-      <header className="site-header">
+      <header className={headerCompact ? "site-header is-compact" : "site-header"}>
         <a className="wordmark" href="#home" aria-label="Nico Guirnalda, home" onClick={closeMenu}>
           NG<span>.</span>
         </a>
@@ -285,8 +294,8 @@ export default function App() {
             Available for select projects
           </div>
           <h1>
-            I build digital
-            <span>experiences that</span>
+            <span className="hero-line hero-line-first">I build digital</span>
+            <span className="hero-line hero-line-second">experiences that</span>
             <em>move people.</em>
           </h1>
           <div className="hero-bottom">

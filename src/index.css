@@ -48,8 +48,8 @@ html {
 
 .site-header {
   align-items: center;
-  background: rgba(11, 11, 10, 0.94);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(22, 22, 20, 0.68);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   color: #fff;
   display: grid;
   grid-template-columns: 1fr auto 1fr;
@@ -57,8 +57,31 @@ html {
   padding: 0 clamp(24px, 5vw, 76px);
   position: sticky;
   top: 0;
+  transition:
+    background 320ms ease,
+    border-radius 320ms ease,
+    box-shadow 320ms ease,
+    height 320ms ease,
+    margin 320ms ease,
+    padding 320ms ease,
+    top 320ms ease,
+    width 320ms ease;
+  width: 100%;
   z-index: 50;
-  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(18px) saturate(145%);
+  backdrop-filter: blur(18px) saturate(145%);
+}
+
+.site-header.is-compact {
+  background: rgba(22, 22, 20, 0.76);
+  border-radius: 18px;
+  box-shadow: 0 12px 38px rgba(0, 0, 0, 0.24);
+  height: 62px;
+  margin: 12px 16px 0;
+  padding-left: clamp(20px, 3vw, 40px);
+  padding-right: clamp(20px, 3vw, 40px);
+  top: 12px;
+  width: calc(100% - 32px);
 }
 
 .wordmark {
@@ -66,7 +89,12 @@ html {
   font-size: 22px;
   font-weight: 700;
   letter-spacing: -0.06em;
+  transition: font-size 320ms ease;
   width: max-content;
+}
+
+.site-header.is-compact .wordmark {
+  font-size: 19px;
 }
 
 .wordmark span {
@@ -76,6 +104,11 @@ html {
 .site-nav {
   display: flex;
   gap: 26px;
+  transition: gap 320ms ease;
+}
+
+.site-header.is-compact .site-nav {
+  gap: 22px;
 }
 
 .site-nav a {
@@ -154,6 +187,7 @@ html {
   letter-spacing: 0.08em;
   margin-bottom: 28px;
   text-transform: uppercase;
+  animation: hero-copy-in 700ms 80ms cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 .status-dot {
@@ -173,8 +207,11 @@ html {
   max-width: 1100px;
 }
 
-.hero h1 > span {
+.hero-line {
   display: block;
+}
+
+.hero-line-second {
   margin-left: 10vw;
 }
 
@@ -187,6 +224,23 @@ html {
   margin-left: 3vw;
 }
 
+.hero h1 > * {
+  animation: hero-line-in 900ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  will-change: opacity, transform;
+}
+
+.hero h1 > :nth-child(1) {
+  animation-delay: 160ms;
+}
+
+.hero h1 > :nth-child(2) {
+  animation-delay: 280ms;
+}
+
+.hero h1 > :nth-child(3) {
+  animation-delay: 400ms;
+}
+
 .hero-bottom {
   align-items: flex-end;
   display: flex;
@@ -197,6 +251,31 @@ html {
   max-width: 650px;
   position: relative;
   z-index: 1;
+  animation: hero-copy-in 800ms 650ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes hero-line-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.55em);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes hero-copy-in {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .hero-bottom p {
@@ -1200,12 +1279,21 @@ footer > a {
 
   .site-nav {
     align-items: center;
-    background: var(--ink);
+    background: rgba(11, 11, 10, 0.92);
+    border: 1px solid rgba(255, 255, 255, 0.12);
     display: none;
     flex-direction: column;
     inset: 81px 0 auto;
     padding: 45px;
     position: absolute;
+    -webkit-backdrop-filter: blur(18px);
+    backdrop-filter: blur(18px);
+  }
+
+  .site-header.is-compact .site-nav {
+    border-radius: 0 0 18px 18px;
+    gap: 26px;
+    inset: 61px 0 auto;
   }
 
   .site-nav.is-open {
@@ -1218,7 +1306,7 @@ footer > a {
     text-transform: none;
   }
 
-  .hero h1 > span {
+  .hero-line-second {
     margin-left: 0;
   }
 
@@ -1301,6 +1389,10 @@ footer > a {
 
   .site-nav {
     inset: 69px 0 auto;
+  }
+
+  .site-header.is-compact .site-nav {
+    inset: 61px 0 auto;
   }
 
   .hero {
