@@ -402,9 +402,44 @@ html {
   font-size: 13px;
   font-weight: 600;
   gap: 24px;
-  margin-top: 35px;
   padding-bottom: 8px;
   width: max-content;
+}
+
+.about-actions {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px 28px;
+  margin-top: 35px;
+}
+
+.resume-button {
+  align-items: center;
+  background: var(--yellow);
+  border: 1px solid var(--yellow);
+  display: inline-flex;
+  font-size: 13px;
+  font-weight: 600;
+  gap: 14px;
+  padding: 13px 17px;
+  transition:
+    background 180ms ease,
+    border-color 180ms ease,
+    color 180ms ease,
+    transform 180ms ease;
+}
+
+.resume-button:hover {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--yellow);
+  transform: translateY(-2px);
+}
+
+.resume-button .arrow {
+  height: 16px;
+  width: 16px;
 }
 
 .stats {

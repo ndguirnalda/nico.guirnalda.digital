@@ -131,6 +131,14 @@ function ArrowIcon({ diagonal = false }: { diagonal?: boolean }) {
   );
 }
 
+function DownloadIcon() {
+  return (
+    <svg aria-hidden="true" viewBox="0 0 24 24" className="arrow">
+      <path d="M12 4v11m-5-5 5 5 5-5M5 20h14" />
+    </svg>
+  );
+}
+
 function ProjectVisual({ type }: { type: string }) {
   if (type === "studio") {
     return (
@@ -281,6 +289,13 @@ export default function App() {
           <a href="#contact" onClick={closeMenu}>
             Contact
           </a>
+          <a
+            href="/Nico-Guirnalda-Resume.pdf"
+            download="Nico-Guirnalda-Resume.pdf"
+            onClick={closeMenu}
+          >
+            Résumé
+          </a>
         </nav>
         <a className="header-cta" href="#contact">
           Let&apos;s talk <ArrowIcon />
@@ -336,9 +351,18 @@ export default function App() {
                 UI/UX, motion and production. I enjoy translating business goals into design that is
                 useful, consistent and ready for the real world.
               </p>
-              <a className="text-link" href={behanceUrl} target="_blank" rel="noreferrer">
-                Explore my Behance <ArrowIcon />
-              </a>
+              <div className="about-actions">
+                <a
+                  className="resume-button"
+                  href="/Nico-Guirnalda-Resume.pdf"
+                  download="Nico-Guirnalda-Resume.pdf"
+                >
+                  Download résumé <DownloadIcon />
+                </a>
+                <a className="text-link" href={behanceUrl} target="_blank" rel="noreferrer">
+                  Explore my Behance <ArrowIcon />
+                </a>
+              </div>
             </div>
           </div>
           <div className="stats reveal" data-reveal>
