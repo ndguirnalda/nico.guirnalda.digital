@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const skills = [
   {
@@ -121,6 +121,7 @@ const certifications = [
 ];
 
 const behanceUrl = "https://www.behance.net/nicoguirnalda";
+const linkedInUrl = "https://www.linkedin.com/in/nico-g-3080a3115/";
 
 function ArrowIcon({ diagonal = false }: { diagonal?: boolean }) {
   return (
@@ -213,6 +214,30 @@ export default function App() {
 
   const closeMenu = () => setMenuOpen(false);
 
+  useEffect(() => {
+    const revealElements = document.querySelectorAll<HTMLElement>("[data-reveal]");
+
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      revealElements.forEach((element) => element.classList.add("is-visible"));
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { rootMargin: "0px 0px -12% 0px", threshold: 0.12 },
+    );
+
+    revealElements.forEach((element) => observer.observe(element));
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <div className="site-shell">
       <header className="site-header">
@@ -286,7 +311,7 @@ export default function App() {
           <div className="section-label">
             <span>01</span> About me
           </div>
-          <div className="about-grid">
+          <div className="about-grid reveal" data-reveal>
             <h2>
               Built with purpose.
               <br />
@@ -307,7 +332,7 @@ export default function App() {
               </a>
             </div>
           </div>
-          <div className="stats">
+          <div className="stats reveal" data-reveal>
             <div>
               <strong>8+</strong>
               <span>
@@ -339,7 +364,7 @@ export default function App() {
           <div className="section-label light">
             <span>02</span> Capabilities
           </div>
-          <div className="skills-heading">
+          <div className="skills-heading reveal" data-reveal>
             <h2>
               The tools are only
               <br />
@@ -350,7 +375,7 @@ export default function App() {
               motion and responsive web implementation.
             </p>
           </div>
-          <div className="skill-list">
+          <div className="skill-list reveal" data-reveal>
             {skills.map((skill) => (
               <article className="skill-row" key={skill.title}>
                 <span className="skill-number">{skill.number}</span>
@@ -369,7 +394,7 @@ export default function App() {
           <div className="section-label">
             <span>03</span> Experience
           </div>
-          <div className="experience-heading">
+          <div className="experience-heading reveal" data-reveal>
             <h2>
               Experience across
               <br />
@@ -380,16 +405,25 @@ export default function App() {
               client support.
             </p>
           </div>
-          <div className="experience-list">
+          <div className="experience-list reveal" data-reveal>
             {experience.map((item, index) => (
-              <article className="experience-row" key={`${item.company}-${item.period}`}>
-                <span className="experience-index">{String(index + 1).padStart(2, "0")}</span>
+              <article
+                className="experience-row reveal"
+                data-reveal
+                key={`${item.company}-${item.period}`}
+              >
                 <span className="experience-period">{item.period}</span>
-                <div className="experience-role">
-                  <h3>{item.role}</h3>
-                  <span>{item.company}</span>
+                <span className="experience-marker" aria-hidden="true">
+                  <i />
+                </span>
+                <div className="experience-content">
+                  <span className="experience-index">{String(index + 1).padStart(2, "0")}</span>
+                  <div className="experience-role">
+                    <h3>{item.role}</h3>
+                    <span>{item.company}</span>
+                  </div>
+                  <p>{item.detail}</p>
                 </div>
-                <p>{item.detail}</p>
               </article>
             ))}
           </div>
@@ -399,7 +433,7 @@ export default function App() {
           <div className="section-label">
             <span>04</span> Design work
           </div>
-          <div className="work-heading">
+          <div className="work-heading reveal" data-reveal>
             <h2>
               A few things
               <br />
@@ -409,7 +443,7 @@ export default function App() {
           </div>
           <div className="project-list">
             {projects.map((project, index) => (
-              <article className="project-card" key={project.title}>
+              <article className="project-card reveal" data-reveal key={project.title}>
                 <div className="project-meta">
                   <span className="project-number">{project.number}</span>
                   <span>{project.type}</span>
@@ -449,7 +483,7 @@ export default function App() {
           <div className="section-label light">
             <span>05</span> Credentials
           </div>
-          <div className="credentials-grid">
+          <div className="credentials-grid reveal" data-reveal>
             <div className="education-card">
               <span className="credential-kicker">Education</span>
               <h2>Bachelor of Science in Information Technology</h2>
@@ -495,6 +529,9 @@ export default function App() {
             <div>
               <a href={behanceUrl} target="_blank" rel="noreferrer">
                 Behance
+              </a>
+              <a href={linkedInUrl} target="_blank" rel="noreferrer">
+                LinkedIn
               </a>
             </div>
             <a href="#home">Back to top ↑</a>
