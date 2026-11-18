@@ -291,7 +291,7 @@ export default function App() {
         <section className="hero section" id="home">
           <div className="hero-kicker">
             <span className="status-dot" />
-            Available for select projects
+            Available for full-time and part-time projects
           </div>
           <h1>
             <span className="hero-line hero-line-first">I build digital</span>
