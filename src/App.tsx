@@ -139,6 +139,23 @@ function DownloadIcon() {
   );
 }
 
+function ThemeIcon({ theme }: { theme: "day" | "night" }) {
+  if (theme === "night") {
+    return (
+      <svg aria-hidden="true" viewBox="0 0 24 24">
+        <path d="M20 15.2A8.5 8.5 0 0 1 8.8 4a8.5 8.5 0 1 0 11.2 11.2Z" />
+      </svg>
+    );
+  }
+
+  return (
+    <svg aria-hidden="true" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="3.5" />
+      <path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" />
+    </svg>
+  );
+}
+
 function ProjectVisual({ type }: { type: string }) {
   if (type === "studio") {
     return (
@@ -220,8 +237,22 @@ function ProjectVisual({ type }: { type: string }) {
 export default function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [headerCompact, setHeaderCompact] = useState(false);
+  const [theme, setTheme] = useState<"day" | "night">(() => {
+    const savedTheme = window.localStorage.getItem("portfolio-theme");
+
+    if (savedTheme === "day" || savedTheme === "night") {
+      return savedTheme;
+    }
+
+    return window.matchMedia("(prefers-color-scheme: dark)").matches ? "night" : "day";
+  });
 
   const closeMenu = () => setMenuOpen(false);
+
+  useEffect(() => {
+    window.localStorage.setItem("portfolio-theme", theme);
+    document.documentElement.style.colorScheme = theme === "night" ? "dark" : "light";
+  }, [theme]);
 
   useEffect(() => {
     const updateHeader = () => setHeaderCompact(window.scrollY > 24);
@@ -256,22 +287,11 @@ export default function App() {
   }, []);
 
   return (
-    <div className="site-shell">
+    <div className="site-shell" data-theme={theme}>
       <header className={headerCompact ? "site-header is-compact" : "site-header"}>
         <a className="wordmark" href="#home" aria-label="Nico Guirnalda, home" onClick={closeMenu}>
           NG<span>.</span>
         </a>
-
-        <button
-          className="menu-button"
-          type="button"
-          aria-expanded={menuOpen}
-          aria-controls="site-navigation"
-          onClick={() => setMenuOpen((open) => !open)}
-        >
-          <span>{menuOpen ? "Close" : "Menu"}</span>
-          <i className={menuOpen ? "menu-icon is-open" : "menu-icon"} />
-        </button>
 
         <nav id="site-navigation" className={menuOpen ? "site-nav is-open" : "site-nav"}>
           <a href="#about" onClick={closeMenu}>
@@ -297,9 +317,33 @@ export default function App() {
             Résumé
           </a>
         </nav>
-        <a className="header-cta" href="#contact">
-          Let&apos;s talk <ArrowIcon />
-        </a>
+        <div className="header-actions">
+          <button
+            className="theme-toggle"
+            type="button"
+            aria-label={`Switch to ${theme === "day" ? "night" : "day"} mode`}
+            aria-pressed={theme === "night"}
+            onClick={() => setTheme((current) => (current === "day" ? "night" : "day"))}
+          >
+            <span className="theme-toggle-icon">
+              <ThemeIcon theme={theme} />
+            </span>
+            <span>{theme === "day" ? "Day" : "Night"}</span>
+          </button>
+          <a className="header-cta" href="#contact">
+            Let&apos;s talk <ArrowIcon />
+          </a>
+          <button
+            className="menu-button"
+            type="button"
+            aria-expanded={menuOpen}
+            aria-controls="site-navigation"
+            onClick={() => setMenuOpen((open) => !open)}
+          >
+            <span>{menuOpen ? "Close" : "Menu"}</span>
+            <i className={menuOpen ? "menu-icon is-open" : "menu-icon"} />
+          </button>
+        </div>
       </header>
 
       <main>

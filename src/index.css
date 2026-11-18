@@ -44,6 +44,9 @@ html {
 .site-shell {
   background: var(--paper);
   min-height: 100vh;
+  transition:
+    background 350ms ease,
+    color 350ms ease;
 }
 
 .site-header {
@@ -125,13 +128,19 @@ html {
   color: var(--yellow);
 }
 
+.header-actions {
+  align-items: center;
+  display: flex;
+  gap: 18px;
+  justify-self: end;
+}
+
 .header-cta {
   align-items: center;
   display: flex;
   font-size: 13px;
   font-weight: 600;
   gap: 12px;
-  justify-self: end;
 }
 
 .arrow {
@@ -150,6 +159,143 @@ html {
 
 .menu-button {
   display: none;
+}
+
+.theme-toggle {
+  align-items: center;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 99px;
+  color: #d8d7d1;
+  display: inline-flex;
+  font-size: 10px;
+  font-weight: 600;
+  gap: 7px;
+  letter-spacing: 0.08em;
+  padding: 5px 9px 5px 5px;
+  text-transform: uppercase;
+  transition:
+    background 180ms ease,
+    border-color 180ms ease,
+    color 180ms ease;
+}
+
+.theme-toggle:hover {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(244, 216, 11, 0.5);
+  color: #fff;
+}
+
+.theme-toggle-icon {
+  align-items: center;
+  background: var(--yellow);
+  border-radius: 50%;
+  color: var(--ink);
+  display: flex;
+  height: 24px;
+  justify-content: center;
+  width: 24px;
+}
+
+.theme-toggle svg {
+  fill: none;
+  height: 14px;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.7;
+  width: 14px;
+}
+
+.site-shell[data-theme="night"] {
+  --line: rgba(255, 255, 255, 0.16);
+  --paper: #11110f;
+  background: var(--paper);
+  color: #f3f1e9;
+}
+
+.site-shell[data-theme="night"] .about,
+.site-shell[data-theme="night"] .experience {
+  background: var(--paper);
+}
+
+.site-shell[data-theme="night"] .section-label,
+.site-shell[data-theme="night"] .about-copy .lead,
+.site-shell[data-theme="night"] .experience-period {
+  color: #f3f1e9;
+}
+
+.site-shell[data-theme="night"] .section-label span,
+.site-shell[data-theme="night"] .experience-index {
+  color: var(--yellow);
+}
+
+.site-shell[data-theme="night"] .about-copy p,
+.site-shell[data-theme="night"] .stats span,
+.site-shell[data-theme="night"] .experience-heading p,
+.site-shell[data-theme="night"] .experience-role span,
+.site-shell[data-theme="night"] .experience-content > p {
+  color: #aaa9a4;
+}
+
+.site-shell[data-theme="night"] .text-link {
+  border-color: #f3f1e9;
+}
+
+.site-shell[data-theme="night"] .experience-marker i {
+  border-color: #f3f1e9;
+}
+
+.site-shell[data-theme="night"] .experience-row.is-visible .experience-marker i {
+  border-color: #f3f1e9;
+}
+
+.site-shell[data-theme="night"] .work {
+  background: #181816;
+}
+
+.site-shell[data-theme="night"] .work-heading p {
+  color: #aaa9a4;
+}
+
+.site-shell[data-theme="night"] .project-card {
+  background: #252522;
+  color: #f3f1e9;
+}
+
+.site-shell[data-theme="night"] .project-card:nth-child(3) {
+  background: #30302c;
+}
+
+.site-shell[data-theme="night"] .project-card:nth-child(even) {
+  background: var(--yellow);
+  color: var(--ink);
+}
+
+.site-shell[data-theme="night"] .project-card p {
+  color: #b5b4ae;
+}
+
+.site-shell[data-theme="night"] .project-card:nth-child(even) p {
+  color: #5c5b56;
+}
+
+.site-shell[data-theme="night"] .project-card:not(:nth-child(even)) .tag-row span {
+  border-color: rgba(255, 255, 255, 0.28);
+  color: #f3f1e9;
+}
+
+.site-shell[data-theme="night"] .project-card:not(:nth-child(even)) .project-link {
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+.about,
+.experience,
+.work,
+.project-card {
+  transition:
+    background 350ms ease,
+    color 350ms ease;
 }
 
 .section {
@@ -1279,6 +1425,10 @@ footer > a {
 
   .header-cta {
     display: none;
+  }
+
+  .header-actions {
+    gap: 12px;
   }
 
   .menu-button {
