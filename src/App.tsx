@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Analytics } from "@vercel/analytics/react";
 
 const skills = [
   {
@@ -615,6 +616,7 @@ export default function App() {
           </footer>
         </section>
       </main>
+      <Analytics />
     </div>
   );
 }
